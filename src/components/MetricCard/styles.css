@@ -1,0 +1,119 @@
+.metric-card {
+  background: #16213e;
+  border: 1px solid #1f3460;
+  border-radius: 12px;
+  padding: 20px 24px;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.metric-card:hover {
+  border-color: #2d4a8a;
+}
+
+/* Header */
+
+.metric-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.metric-card__label-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.metric-card__icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: #64748b;
+}
+
+.metric-card__label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Status pill */
+
+.metric-card__status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: capitalize;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+  color: var(--status-color);
+  background-color: color-mix(in srgb, var(--status-color) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--status-color) 28%, transparent);
+}
+
+.metric-card__status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* Body: value + trend */
+
+.metric-card__body {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.metric-card__value {
+  font-size: 30px;
+  font-weight: 700;
+  color: #f1f5f9;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-card__trend-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  line-height: 1.5;
+}
+
+.metric-card__trend-badge--positive {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.1);
+}
+
+.metric-card__trend-badge--negative {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+}
+
+/* Sparkline */
+
+.metric-card__sparkline {
+  display: flex;
+}
+
+.metric-card__sparkline-svg {
+  display: block;
+}
