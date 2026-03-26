@@ -1,7 +1,8 @@
-import React, { useMemo, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { MetricCard } from './components/MetricCard'
 import { DataWidget } from './components/DataWidget'
 import { createMockSocket } from './utils/createMockSocket'
+import './App.css'
 
 const STATIC_METRICS = [
   {
@@ -59,21 +60,20 @@ const rowStyle = {
 }
 
 export default function App() {
-  // Each live widget owns its own socket
-  const socketA = useMemo(() => createMockSocket(), [])
-  const socketB = useMemo(() => createMockSocket(), [])
+  const [liveSockets, setLiveSockets] = useState({ a: null, b: null })
 
-  // DataWidget closes its socket on unmount, but if the component
-  // is never unmounted (e.g. during dev HMR), this is a fallback.
   useEffect(() => {
+    const a = createMockSocket()
+    const b = createMockSocket()
+    setLiveSockets({ a, b })
     return () => {
-      socketA.close()
-      socketB.close()
+      a.close()
+      b.close()
     }
-  }, [socketA, socketB])
+  }, [])
 
   return (
-    <div style={{ padding: '48px 40px', background: '#0b0f1e', minHeight: '100vh', fontFamily: 'system-ui, sans-serif' }}>
+    <div className="app">
 
       <section style={sectionStyle}>
         <h2 style={headingStyle}>Part 1 — MetricCard (static)</h2>
@@ -104,20 +104,24 @@ export default function App() {
       <section style={sectionStyle}>
         <h2 style={headingStyle}>Part 2 — DataWidget · live mode</h2>
         <div style={rowStyle}>
-          <DataWidget
-            mode="live"
-            socket={socketA}
-            label="Live Threats"
-            unit="abbreviated"
-            {...LIVE_INITIAL}
-          />
-          <DataWidget
-            mode="live"
-            socket={socketB}
-            label="Block Rate"
-            unit="percent"
-            {...LIVE_INITIAL}
-          />
+          {liveSockets.a && (
+            <DataWidget
+              mode="live"
+              socket={liveSockets.a}
+              label="Live Threats"
+              unit="abbreviated"
+              {...LIVE_INITIAL}
+            />
+          )}
+          {liveSockets.b && (
+            <DataWidget
+              mode="live"
+              socket={liveSockets.b}
+              label="Block Rate"
+              unit="percent"
+              {...LIVE_INITIAL}
+            />
+          )}
         </div>
       </section>
 

@@ -34,7 +34,6 @@ const LiveCard = ({ socket, label, unit, icon, value, trendDelta, trend, status 
 
     return () => {
       socket.removeEventListener('message', handler)
-      socket.close()
     }
   }, [socket])
 
